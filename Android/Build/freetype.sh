@@ -5,7 +5,7 @@ FREETYPE_VERSION=2.12.1
 
 mkdir -p deps; cd deps
 
-if [ ! -d libcurl-src ]; then
+if [ ! -d freetype-src ]; then
 	wget https://download.savannah.gnu.org/releases/freetype/freetype-$FREETYPE_VERSION.tar.gz
 	tar -xzvf freetype-$FREETYPE_VERSION.tar.gz
 	mv freetype-$FREETYPE_VERSION freetype-src

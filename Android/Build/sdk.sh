@@ -31,7 +31,7 @@ else
 fi
 
 export API=21
-export CFLAGS="-Ofast -fvisibility=hidden -fexceptions -D__ANDROID_MIN_SDK_VERSION__=$API"
+export CFLAGS="-Ofast -fexceptions -D__ANDROID_MIN_SDK_VERSION__=$API"
 export CXXFLAGS="$CFLAGS -frtti"
 export NATIVE_API_LEVEL="android-$API"
 
