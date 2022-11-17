@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 . sdk.sh
-SDL2_VERSION=2.24.1
+SDL2_VERSION=2.24.2
 
 mkdir -p deps; cd deps
 
