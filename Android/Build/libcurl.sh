@@ -1,7 +1,9 @@
 #!/bin/bash -e
 
 . sdk.sh
-CURL_VERSION=7.78.0
+CURL_VERSION=7.86.0
+
+export ANDR_ROOT=$(pwd)
 
 mkdir -p deps; cd deps
 
@@ -14,24 +16,24 @@ fi
 
 cd libcurl-src
 
-./configure --host=$TARGET CFLAGS="$CFLAGS" CPPFLAGS="$CXXFLAGS" \
+./configure --host=$TARGET \
+	--with-mbedtls="$ANDR_ROOT/deps/mbedtls-src/build" \
 	--prefix=/ --disable-shared --enable-static \
 	--disable-debug --disable-verbose --disable-versioned-symbols \
-	--enable-hidden-symbols --disable-dependency-tracking \
+	--disable-dependency-tracking --disable-libcurl-option \
 	--disable-ares --disable-cookies --disable-crypto-auth --disable-manual \
-	--disable-proxy --disable-unix-sockets --without-libidn --without-librtmp \
-	--without-ssl --disable-ftp --disable-ldap --disable-ldaps --disable-rtsp \
+	--disable-proxy --disable-unix-sockets --without-librtmp \
+	--disable-ftp --disable-ldap --disable-ldaps --disable-rtsp \
 	--disable-dict --disable-telnet --disable-tftp --disable-pop3 \
-	--disable-imap --disable-smtp --disable-gopher --disable-sspi \
-	--disable-libcurl-option
+	--disable-imap --disable-smtp --disable-gopher --disable-sspi
 
 make -j
 
 # update `include` folder
-rm -rf ../../../Curl/include/
-cp -r include ../../../Curl/include
+rm -rf ../../../Curl/include
+cp -r include ../../../Curl/
 # update lib
-rm -rf ../../../Curl/clang_nossl/$TARGET_ABI/libcurl.a
-cp -r lib/.libs/libcurl.a ../../../Curl/clang_nossl/$TARGET_ABI/libcurl.a
+rm -rf ../../../Curl/clang/$TARGET_ABI/libcurl.a
+cp -r lib/.libs/libcurl.a ../../../Curl/clang/$TARGET_ABI/
 
 echo "libcurl build successful"
